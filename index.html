@@ -1,0 +1,1075 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>DPDP Act Staff Training — [Clinic Name]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --teal: #0B7B6E;
+    --teal-light: #E6F4F2;
+    --teal-mid: #C2E8E3;
+    --teal-dark: #074E44;
+    --accent: #D4854A;
+    --accent-light: #FDF0E6;
+    --red: #C0392B;
+    --red-light: #FDECEA;
+    --text: #1A1A1A;
+    --text-muted: #6B7280;
+    --text-faint: #9CA3AF;
+    --border: #E5E7EB;
+    --surface: #F9FAFB;
+    --white: #FFFFFF;
+    --shadow: 0 1px 3px rgba(0,0,0,0.08), 0 1px 2px rgba(0,0,0,0.04);
+    --shadow-md: 0 4px 16px rgba(0,0,0,0.08);
+  }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: #F4F6F4;
+    color: var(--text);
+    min-height: 100vh;
+    font-size: 15px;
+    line-height: 1.65;
+  }
+
+  /* ── LANDING ── */
+  #landing {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem 1.5rem;
+    background: linear-gradient(160deg, #EAF4F2 0%, #F4F6F4 55%, #FDF0E6 100%);
+  }
+
+  .landing-badge {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--teal-light);
+    border: 1px solid var(--teal-mid);
+    border-radius: 20px;
+    padding: 5px 14px;
+    margin-bottom: 1.5rem;
+  }
+
+  .landing-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(2rem, 5vw, 3.2rem);
+    color: var(--text);
+    text-align: center;
+    line-height: 1.2;
+    margin-bottom: 0.75rem;
+    max-width: 600px;
+  }
+
+  .landing-title span { color: var(--teal); }
+
+  .landing-sub {
+    color: var(--text-muted);
+    text-align: center;
+    max-width: 480px;
+    margin-bottom: 2rem;
+    font-size: 15px;
+  }
+
+  .landing-modules {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    max-width: 560px;
+    width: 100%;
+    margin-bottom: 2rem;
+  }
+
+  .lm-chip {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 0.75rem;
+    font-size: 12px;
+    color: var(--text-muted);
+    text-align: center;
+  }
+
+  .lm-chip strong { display: block; color: var(--text); font-size: 13px; margin-bottom: 2px; }
+
+  .name-form {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 16px;
+    padding: 1.75rem 2rem;
+    width: 100%;
+    max-width: 400px;
+    box-shadow: var(--shadow-md);
+  }
+
+  .name-form label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-muted);
+    margin-bottom: 8px;
+  }
+
+  .name-form input {
+    width: 100%;
+    padding: 0.7rem 1rem;
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    color: var(--text);
+    background: var(--surface);
+    transition: border-color 0.2s;
+    outline: none;
+    margin-bottom: 1rem;
+  }
+
+  .name-form input:focus { border-color: var(--teal); background: var(--white); }
+
+  .btn-start {
+    width: 100%;
+    padding: 0.8rem 1.5rem;
+    background: var(--teal);
+    color: var(--white);
+    border: none;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 15px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+
+  .btn-start:hover { background: var(--teal-dark); }
+  .btn-start:active { transform: scale(0.98); }
+
+  /* ── TRAINING SHELL ── */
+  #app { display: none; min-height: 100vh; }
+
+  .top-bar {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 0.85rem 1.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: var(--shadow);
+  }
+
+  .top-bar-left { display: flex; align-items: center; gap: 12px; }
+
+  .top-logo {
+    font-family: 'DM Serif Display', serif;
+    font-size: 16px;
+    color: var(--teal);
+    letter-spacing: -0.01em;
+  }
+
+  .top-name {
+    font-size: 12px;
+    color: var(--text-muted);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 6px;
+    padding: 3px 10px;
+  }
+
+  .progress-wrap { display: flex; align-items: center; gap: 10px; }
+  .progress-label { font-size: 11px; color: var(--text-faint); white-space: nowrap; }
+  .progress-track { width: 120px; height: 4px; background: var(--border); border-radius: 2px; }
+  .progress-fill { height: 4px; background: var(--teal); border-radius: 2px; transition: width 0.4s ease; }
+
+  .main-content {
+    max-width: 680px;
+    margin: 0 auto;
+    padding: 2rem 1.5rem 4rem;
+  }
+
+  .module-chip {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--teal);
+    background: var(--teal-light);
+    border-radius: 20px;
+    padding: 3px 12px;
+    margin-bottom: 1rem;
+  }
+
+  h1.slide-title {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: 400;
+    color: var(--text);
+    margin-bottom: 0.75rem;
+    line-height: 1.25;
+  }
+
+  .slide-body {
+    color: var(--text-muted);
+    line-height: 1.75;
+    margin-bottom: 1.25rem;
+  }
+
+  /* Cards */
+  .card-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 10px;
+    margin: 1.25rem 0;
+  }
+
+  .stat-card {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    box-shadow: var(--shadow);
+  }
+
+  .stat-card .sc-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 6px;
+  }
+
+  .stat-card .sc-val {
+    font-size: 14px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.4;
+  }
+
+  /* Do/Don't */
+  .do-dont { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 1.25rem 0; }
+
+  .do-box, .dont-box {
+    border-radius: 12px;
+    padding: 1rem 1.1rem;
+    font-size: 13px;
+    line-height: 1.6;
+  }
+
+  .do-box { background: var(--teal-light); border: 1px solid var(--teal-mid); }
+  .dont-box { background: var(--red-light); border: 1px solid #F5C6C2; }
+
+  .do-box .box-head { font-weight: 600; color: var(--teal-dark); margin-bottom: 0.6rem; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+  .dont-box .box-head { font-weight: 600; color: var(--red); margin-bottom: 0.6rem; font-size: 12px; text-transform: uppercase; letter-spacing: 0.06em; }
+
+  .do-box ul, .dont-box ul { padding-left: 1.1rem; }
+  .do-box li { color: var(--teal-dark); margin-bottom: 4px; }
+  .dont-box li { color: #922B21; margin-bottom: 4px; }
+
+  /* Scenario */
+  .scenario {
+    background: var(--surface);
+    border-left: 3px solid var(--teal);
+    border-radius: 0 10px 10px 0;
+    padding: 1rem 1.25rem;
+    margin: 1.25rem 0;
+    font-size: 14px;
+    color: var(--text-muted);
+    line-height: 1.7;
+  }
+
+  .scenario strong { color: var(--text); }
+
+  /* Rights list */
+  .rights-list { list-style: none; margin: 1.25rem 0; }
+  .rights-list li {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 0.65rem 0;
+    border-bottom: 1px solid var(--border);
+    font-size: 14px;
+  }
+  .rights-list li:last-child { border-bottom: none; }
+  .r-dot {
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    background: var(--teal-light);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    margin-top: 1px;
+  }
+  .r-dot svg { width: 13px; height: 13px; stroke: var(--teal); fill: none; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+  .rights-list strong { color: var(--text); }
+
+  /* Pills */
+  .pills { display: flex; flex-wrap: wrap; gap: 6px; margin: 1rem 0; }
+  .pill {
+    font-size: 11px;
+    font-weight: 500;
+    padding: 4px 12px;
+    border-radius: 20px;
+  }
+  .pill-teal { background: var(--teal-light); color: var(--teal-dark); border: 1px solid var(--teal-mid); }
+  .pill-amber { background: var(--accent-light); color: #8B4513; border: 1px solid #F5CBA7; }
+  .pill-blue { background: #EEF2FF; color: #3730A3; border: 1px solid #C7D2FE; }
+
+  /* Navigation */
+  .nav-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-top: 2.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+  }
+
+  .btn-nav {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 0.6rem 1.2rem;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1px solid var(--border);
+    background: var(--white);
+    color: var(--text-muted);
+  }
+
+  .btn-nav:hover { background: var(--surface); color: var(--text); }
+  .btn-nav.primary { background: var(--teal); color: var(--white); border-color: var(--teal); }
+  .btn-nav.primary:hover { background: var(--teal-dark); }
+  .btn-nav:disabled { opacity: 0.35; cursor: default; }
+
+  .nav-steps { font-size: 12px; color: var(--text-faint); }
+
+  /* QUIZ */
+  .quiz-q {
+    font-size: 15px;
+    color: var(--text);
+    font-weight: 500;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+    padding: 1rem 1.25rem;
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    box-shadow: var(--shadow);
+  }
+
+  .quiz-label {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--text-faint);
+    margin-bottom: 0.5rem;
+  }
+
+  .quiz-opt {
+    display: block;
+    width: 100%;
+    text-align: left;
+    padding: 0.8rem 1.1rem;
+    margin-bottom: 8px;
+    background: var(--white);
+    border: 1.5px solid var(--border);
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    color: var(--text);
+    cursor: pointer;
+    transition: all 0.15s;
+    line-height: 1.5;
+  }
+
+  .quiz-opt:hover:not(:disabled) { border-color: var(--teal); background: var(--teal-light); color: var(--teal-dark); }
+  .quiz-opt.correct { background: var(--teal-light); border-color: var(--teal); color: var(--teal-dark); font-weight: 500; }
+  .quiz-opt.wrong { background: var(--red-light); border-color: var(--red); color: #922B21; }
+  .quiz-opt:disabled { cursor: default; }
+
+  .quiz-feedback {
+    padding: 0.8rem 1rem;
+    border-radius: 10px;
+    font-size: 13px;
+    line-height: 1.6;
+    margin-top: 0.75rem;
+    display: none;
+  }
+  .quiz-feedback.show { display: block; }
+  .quiz-feedback.fb-good { background: var(--teal-light); color: var(--teal-dark); border: 1px solid var(--teal-mid); }
+  .quiz-feedback.fb-bad { background: var(--red-light); color: #922B21; border: 1px solid #F5C6C2; }
+
+  /* CERTIFICATE */
+  #cert-screen { display: none; min-height: 100vh; background: linear-gradient(160deg, #EAF4F2 0%, #F4F6F4 60%, #FDF0E6 100%); padding: 3rem 1.5rem; }
+
+  .cert-container {
+    max-width: 680px;
+    margin: 0 auto;
+  }
+
+  .cert-paper {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 20px;
+    padding: 3rem 3rem 2.5rem;
+    box-shadow: 0 8px 40px rgba(0,0,0,0.10);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .cert-paper::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 6px;
+    background: linear-gradient(90deg, var(--teal) 0%, #1DB8A6 50%, var(--accent) 100%);
+  }
+
+  .cert-watermark {
+    position: absolute;
+    bottom: -20px;
+    right: -20px;
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    border: 40px solid var(--teal-light);
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
+  .cert-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+
+  .cert-issuer {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--teal);
+    margin-bottom: 0.5rem;
+  }
+
+  .cert-headline {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.4rem, 3vw, 2rem);
+    color: var(--text);
+    line-height: 1.2;
+    margin-bottom: 0.4rem;
+  }
+
+  .cert-sub {
+    font-size: 13px;
+    color: var(--text-faint);
+  }
+
+  .cert-divider {
+    height: 1px;
+    background: var(--border);
+    margin: 1.75rem 0;
+    position: relative;
+  }
+
+  .cert-divider::after {
+    content: '✦';
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    background: var(--white);
+    padding: 0 10px;
+    color: var(--teal);
+    font-size: 12px;
+  }
+
+  .cert-body { text-align: center; }
+
+  .cert-presented { font-size: 13px; color: var(--text-muted); margin-bottom: 0.5rem; }
+
+  .cert-name {
+    font-family: 'DM Serif Display', serif;
+    font-size: clamp(1.6rem, 4vw, 2.4rem);
+    color: var(--teal-dark);
+    margin-bottom: 0.5rem;
+    line-height: 1.2;
+  }
+
+  .cert-course {
+    font-size: 14px;
+    color: var(--text-muted);
+    margin-bottom: 0.25rem;
+  }
+
+  .cert-act {
+    font-size: 13px;
+    color: var(--text-faint);
+    margin-bottom: 1.75rem;
+  }
+
+  .cert-score-row {
+    display: flex;
+    justify-content: center;
+    gap: 24px;
+    margin: 1.5rem 0;
+  }
+
+  .cert-score-item { text-align: center; }
+  .cert-score-item .cs-num { font-family: 'DM Serif Display', serif; font-size: 2rem; color: var(--teal); line-height: 1; }
+  .cert-score-item .cs-label { font-size: 11px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+
+  .cert-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    margin-top: 2rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid var(--border);
+    gap: 1rem;
+  }
+
+  .cert-sig-line {
+    flex: 1;
+    text-align: center;
+  }
+
+  .cert-sig-label {
+    font-size: 11px;
+    color: var(--text-faint);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    margin-bottom: 4px;
+  }
+
+  .cert-sig-val {
+    font-family: 'DM Serif Display', serif;
+    font-size: 15px;
+    color: var(--text);
+    border-bottom: 1px solid var(--border);
+    padding-bottom: 6px;
+    min-height: 30px;
+  }
+
+  .cert-id-box {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 0.6rem 1rem;
+    text-align: center;
+    margin-top: 1.5rem;
+  }
+
+  .cert-id-label { font-size: 10px; color: var(--text-faint); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 4px; }
+  .cert-id-val { font-family: 'DM Sans', sans-serif; font-size: 13px; font-weight: 600; color: var(--teal-dark); letter-spacing: 0.06em; }
+
+  .cert-actions { display: flex; gap: 10px; margin-top: 1.5rem; flex-wrap: wrap; }
+
+  .btn-print {
+    flex: 1;
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.15s;
+    border: 1.5px solid var(--teal);
+    background: var(--teal);
+    color: var(--white);
+    text-align: center;
+  }
+
+  .btn-print:hover { background: var(--teal-dark); }
+
+  .btn-restart {
+    padding: 0.75rem 1.25rem;
+    border-radius: 10px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 14px;
+    font-weight: 500;
+    cursor: pointer;
+    border: 1.5px solid var(--border);
+    background: var(--white);
+    color: var(--text-muted);
+    transition: all 0.15s;
+  }
+  .btn-restart:hover { background: var(--surface); }
+
+  @media print {
+    body { background: white; }
+    #app, #landing { display: none !important; }
+    #cert-screen {
+      display: block !important;
+      padding: 0;
+      background: white;
+    }
+    .cert-paper { box-shadow: none; border: 1px solid #ddd; page-break-inside: avoid; }
+    .cert-actions, .btn-restart, .cert-footer-note { display: none !important; }
+  }
+
+  @media (max-width: 540px) {
+    .main-content { padding: 1.5rem 1rem 3rem; }
+    .do-dont { grid-template-columns: 1fr; }
+    .landing-modules { grid-template-columns: repeat(2, 1fr); }
+    .cert-paper { padding: 2rem 1.5rem; }
+    .cert-footer { flex-direction: column; }
+    .cert-score-row { gap: 16px; }
+    .top-bar { flex-wrap: wrap; gap: 8px; }
+    .progress-wrap { width: 100%; }
+    .progress-track { flex: 1; }
+  }
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════ LANDING ═══════════════════ -->
+<div id="landing">
+  <div class="landing-badge">DPDP Act, 2023 · Mandatory Staff Training</div>
+  <h1 class="landing-title">Patient Data <span>Protection</span> Training</h1>
+  <p class="landing-sub">A 10-minute compliance training for all clinic staff — covering the Digital Personal Data Protection Act, 2023 and your responsibilities under it.</p>
+  <div class="landing-modules">
+    <div class="lm-chip"><strong>Module 1</strong>What is DPDP?</div>
+    <div class="lm-chip"><strong>Module 2</strong>Patient data types</div>
+    <div class="lm-chip"><strong>Module 3</strong>Consent rules</div>
+    <div class="lm-chip"><strong>Module 4</strong>Patient rights</div>
+    <div class="lm-chip"><strong>Module 5</strong>Security & breaches</div>
+    <div class="lm-chip"><strong>Module 6</strong>Quiz + certificate</div>
+  </div>
+  <div class="name-form">
+    <label for="staff-name">Your full name</label>
+    <input type="text" id="staff-name" placeholder="e.g. Priya Suresh" autocomplete="name">
+    <label for="staff-role" style="margin-top:0.25rem;">Your role</label>
+    <input type="text" id="staff-role" placeholder="e.g. Receptionist, Nurse, Doctor">
+    <button class="btn-start" onclick="startTraining()">Begin training →</button>
+    <p id="name-err" style="color:var(--red);font-size:12px;margin-top:8px;display:none;">Please enter your name to continue.</p>
+  </div>
+</div>
+
+<!-- ═══════════════════ TRAINING APP ═══════════════════ -->
+<div id="app">
+  <div class="top-bar">
+    <div class="top-bar-left">
+      <div class="top-logo">DPDP Training</div>
+      <div class="top-name" id="top-name"></div>
+    </div>
+    <div class="progress-wrap">
+      <span class="progress-label" id="prog-label">1 / 6</span>
+      <div class="progress-track"><div class="progress-fill" id="prog-fill" style="width:16%"></div></div>
+    </div>
+  </div>
+  <div class="main-content" id="slide-content"></div>
+</div>
+
+<!-- ═══════════════════ CERTIFICATE ═══════════════════ -->
+<div id="cert-screen">
+  <div class="cert-container">
+    <div class="cert-paper" id="cert-paper">
+      <div class="cert-watermark"></div>
+      <div class="cert-header">
+        <div class="cert-issuer">[Clinic Name] &nbsp;·&nbsp; Chennai</div>
+        <div class="cert-headline">Certificate of Completion</div>
+        <div class="cert-sub">Digital Personal Data Protection Act, 2023 — Staff Compliance Training</div>
+      </div>
+      <div class="cert-divider"></div>
+      <div class="cert-body">
+        <div class="cert-presented">This certifies that</div>
+        <div class="cert-name" id="cert-name"></div>
+        <div class="cert-course">has successfully completed the mandatory training on</div>
+        <div class="cert-act">Patient Data Protection under the DPDP Act, 2023 &amp; DPDP Rules, 2025</div>
+        <div class="cert-score-row">
+          <div class="cert-score-item"><div class="cs-num" id="cert-score-num"></div><div class="cs-label">Quiz score</div></div>
+          <div class="cert-score-item"><div class="cs-num" id="cert-pct"></div><div class="cs-label">Percentage</div></div>
+          <div class="cert-score-item"><div class="cs-num" id="cert-date-num"></div><div class="cs-label">Date</div></div>
+        </div>
+      </div>
+      <div class="cert-footer">
+        <div class="cert-sig-line">
+          <div class="cert-sig-label">Staff name</div>
+          <div class="cert-sig-val" id="sig-name"></div>
+        </div>
+        <div class="cert-sig-line">
+          <div class="cert-sig-label">Role</div>
+          <div class="cert-sig-val" id="sig-role"></div>
+        </div>
+        <div class="cert-sig-line">
+          <div class="cert-sig-label">Authorised by</div>
+          <div class="cert-sig-val">[Clinic Owner / DPO]</div>
+        </div>
+      </div>
+      <div class="cert-id-box">
+        <div class="cert-id-label">Certificate ID</div>
+        <div class="cert-id-val" id="cert-id-val"></div>
+      </div>
+    </div>
+    <div class="cert-actions">
+      <button class="btn-print" onclick="window.print()">🖨️ Print / Save as PDF</button>
+      <button class="btn-restart" onclick="restartTraining()">← Restart training</button>
+    </div>
+    <p style="font-size:12px;color:var(--text-faint);margin-top:1rem;text-align:center;" class="cert-footer-note">Keep a printed or digital copy of this certificate in clinic records for compliance purposes.</p>
+  </div>
+</div>
+
+<script>
+// ─── State ───────────────────────────────────────────
+let staffName = '', staffRole = '', currentSlide = 0;
+let quizAnswers = [], quizIdx = 0;
+
+// ─── Slides data ─────────────────────────────────────
+const slides = [
+  { module: 'Module 1 of 5', prog: 20, title: 'Why the DPDP Act matters to you', type: 'content',
+    render: () => `
+      <p class="slide-body">India's Digital Personal Data Protection Act, 2023 (DPDP Act) is now in full force. It gives patients legal rights over their health data — and places legal obligations on every person who handles it, including all clinic staff.</p>
+      <div class="card-grid">
+        <div class="stat-card"><div class="sc-label">Who it applies to</div><div class="sc-val">All staff who access patient data — receptionists, nurses, doctors, billing staff</div></div>
+        <div class="stat-card"><div class="sc-label">Max penalty</div><div class="sc-val">Up to ₹250 crore for serious data protection violations</div></div>
+        <div class="stat-card"><div class="sc-label">Breach notification</div><div class="sc-val">Clinic must notify patients & the Data Protection Board within 72 hours</div></div>
+      </div>
+      <p class="slide-body">The clinic is the "Data Fiduciary" — legally responsible for all data it collects. As a staff member, you share that responsibility in your day-to-day work.</p>
+      <div class="pills">
+        <span class="pill pill-teal">Applies to all staff</span>
+        <span class="pill pill-amber">Active from May 2027</span>
+        <span class="pill pill-blue">Patients have legal rights</span>
+      </div>
+    `
+  },
+  { module: 'Module 2 of 5', prog: 40, title: 'What counts as patient data?', type: 'content',
+    render: () => `
+      <p class="slide-body">Under the DPDP Act, "personal data" is any information that can identify a patient — directly or indirectly. Health information is treated as especially sensitive and requires the highest level of care.</p>
+      <div class="card-grid">
+        <div class="stat-card"><div class="sc-label">Identity & contact</div><div class="sc-val">Name, phone number, address, date of birth, gender</div></div>
+        <div class="stat-card"><div class="sc-label">Medical records</div><div class="sc-val">Diagnoses, prescriptions, lab reports, imaging, allergies, mental health notes</div></div>
+        <div class="stat-card"><div class="sc-label">Billing & admin</div><div class="sc-val">Payment records, appointment history, insurance details</div></div>
+        <div class="stat-card"><div class="sc-label">Digital identifiers</div><div class="sc-val">ABHA number, patient ID, Aadhaar (if collected)</div></div>
+      </div>
+      <div class="scenario">
+        <strong>Remember:</strong> Even a patient's phone number alone is personal data. A photo, a voice recording, or a WhatsApp message containing health details — all count. Treat everything you access about a patient as protected information.
+      </div>
+    `
+  },
+  { module: 'Module 3 of 5', prog: 60, title: 'Consent — your most important duty', type: 'content',
+    render: () => `
+      <p class="slide-body">Before the clinic can collect or use a patient's data, that patient must give informed, voluntary consent. This is a legal requirement — not a formality. Your role is to ensure the consent process happens correctly.</p>
+      <div class="do-dont">
+        <div class="do-box">
+          <div class="box-head">✓ &nbsp;Do</div>
+          <ul>
+            <li>Give new patients the consent notice before registration</li>
+            <li>Explain what data is collected and why, in plain language</li>
+            <li>File the signed consent form with the patient record</li>
+            <li>Get a parent or guardian signature for patients under 18</li>
+            <li>Record verbal consent for phone or tele-consultations</li>
+          </ul>
+        </div>
+        <div class="dont-box">
+          <div class="box-head">✗ &nbsp;Don't</div>
+          <ul>
+            <li>Collect data before consent is given</li>
+            <li>Pressure patients to sign quickly</li>
+            <li>Share data with family without the patient's own consent</li>
+            <li>Assume repeat patients have consented for new purposes</li>
+            <li>Send patient details over a personal WhatsApp account</li>
+          </ul>
+        </div>
+      </div>
+      <div class="scenario">
+        <strong>Important:</strong> If a patient refuses consent for non-essential data collection, they still have the full right to receive medical care. Consent cannot be a condition for treatment.
+      </div>
+    `
+  },
+  { module: 'Module 4 of 5', prog: 80, title: 'Six rights every patient holds', type: 'content',
+    render: () => `
+      <p class="slide-body">Patients can exercise these rights at any time. Your job is to listen, acknowledge, and direct requests to the clinic's data protection contact — never dismiss or delay them.</p>
+      <ul class="rights-list">
+        <li>
+          <div class="r-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/></svg></div>
+          <span><strong>Access</strong> — Patient can ask what data we hold and how it is used. We must respond promptly.</span>
+        </li>
+        <li>
+          <div class="r-dot"><svg viewBox="0 0 24 24"><path d="M11 4H4a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2v-7"/><path d="M18.5 2.5a2.121 2.121 0 0 1 3 3L12 15l-4 1 1-4 9.5-9.5z"/></svg></div>
+          <span><strong>Correct</strong> — Patient can ask us to fix inaccurate or outdated personal information in their record.</span>
+        </li>
+        <li>
+          <div class="r-dot"><svg viewBox="0 0 24 24"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 0 1-2 2H8a2 2 0 0 1-2-2L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg></div>
+          <span><strong>Erase</strong> — Patient can request deletion of their data (subject to legal retention requirements).</span>
+        </li>
+        <li>
+          <div class="r-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/></svg></div>
+          <span><strong>Withdraw consent</strong> — Patient can revoke consent at any time. The clinic must stop processing their data.</span>
+        </li>
+        <li>
+          <div class="r-dot"><svg viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+          <span><strong>Nominate</strong> — Patient can appoint someone to exercise their data rights on their behalf (e.g., if incapacitated).</span>
+        </li>
+        <li>
+          <div class="r-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg></div>
+          <span><strong>Grievance</strong> — Patient can raise a formal complaint. We must resolve it internally before they can escalate to the Data Protection Board of India.</span>
+        </li>
+      </ul>
+      <div class="scenario">
+        <strong>Scenario:</strong> A patient calls and asks, "Can you tell me what information you have about me?" &nbsp;→&nbsp; <strong>What to do:</strong> Log the request and pass it to the clinic's data protection contact. Do not read out records over the phone without verifying identity first.
+      </div>
+    `
+  },
+  { module: 'Module 5 of 5', prog: 100, title: 'Data security & what to do in a breach', type: 'content',
+    render: () => `
+      <p class="slide-body">Every staff member plays a role in keeping patient data safe. A breach doesn't have to be a cyberattack — losing a file, sending the wrong message, or leaving a screen unlocked all count as breaches under the DPDP Act.</p>
+      <div class="card-grid">
+        <div class="stat-card"><div class="sc-label">Strong passwords</div><div class="sc-val">Never share your login credentials with a colleague — not even temporarily</div></div>
+        <div class="stat-card"><div class="sc-label">Lock your screen</div><div class="sc-val">Every time you step away from a device, even briefly</div></div>
+        <div class="stat-card"><div class="sc-label">Approved channels only</div><div class="sc-val">Never send patient data via your personal WhatsApp or email account</div></div>
+        <div class="stat-card"><div class="sc-label">Need-to-know only</div><div class="sc-val">Only access records that are relevant to your specific role</div></div>
+      </div>
+      <p class="slide-body" style="font-weight:500;margin-bottom:0.5rem;">If you suspect a data breach, follow these steps immediately:</p>
+      <ul class="rights-list">
+        <li><div class="r-dot"><svg viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg></div><span>Do <strong>not</strong> try to fix it yourself or cover it up — act immediately.</span></li>
+        <li><div class="r-dot"><svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.62 3.44a2 2 0 0 1 1.99-2.18h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l1.71-1.71a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></div><span>Report it <strong>immediately</strong> to the clinic owner or data protection contact.</span></li>
+        <li><div class="r-dot"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg></div><span>The clinic must notify affected patients and the Data Protection Board <strong>within 72 hours</strong>.</span></li>
+        <li><div class="r-dot"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg></div><span>Document what happened — date, time, what data was affected, and how.</span></li>
+      </ul>
+    `
+  }
+];
+
+// ─── Quiz questions ───────────────────────────────────
+const questions = [
+  {
+    q: 'A new patient at registration refuses to fill the consent form. What do you do?',
+    opts: [
+      'Insist they sign before you register them — it is required',
+      'Explain the form, answer their questions calmly, and give them time. They still have a right to treatment.',
+      'Skip the form and register them anyway — you can sort it later',
+      'Ask the doctor to handle it'
+    ],
+    correct: 1,
+    feedback: 'Correct. Consent cannot be a condition for receiving medical care. Explain the notice clearly, give the patient time, and escalate to the data protection contact if needed.'
+  },
+  {
+    q: "A patient's husband calls asking for details of his wife's recent diagnosis. What do you do?",
+    opts: [
+      'Share the information — he is family and has the right to know',
+      'Share only if the treating doctor gives verbal approval',
+      'Do not share without the patient\'s own consent, unless she has formally nominated him or it is a documented emergency',
+      'Transfer the call to the doctor immediately and let them decide'
+    ],
+    correct: 2,
+    feedback: 'Correct. Personal data cannot be shared with family members without the patient\'s own written consent. Being a spouse does not override data rights under the DPDP Act.'
+  },
+  {
+    q: 'You accidentally send a prescription to the wrong patient\'s phone number via WhatsApp. What do you do?',
+    opts: [
+      'Delete the message from your end and hope the recipient ignores it',
+      'Call the patient who was supposed to receive it and apologise, but do not escalate further',
+      'Report it immediately to the clinic\'s data protection contact — this is a data breach',
+      'Nothing — it was an honest accident and no harm was intended'
+    ],
+    correct: 2,
+    feedback: 'Correct. Any accidental disclosure of patient data — even to the wrong person — is a breach under the DPDP Act. Report it immediately so the clinic can notify affected parties within 72 hours if required.'
+  },
+  {
+    q: 'How long does the clinic have to notify the Data Protection Board of India after discovering a data breach?',
+    opts: ['24 hours', '48 hours', '72 hours', '7 days'],
+    correct: 2,
+    feedback: 'Correct. The DPDP Act and Rules require the clinic to notify the Data Protection Board of India within 72 hours of discovering any personal data breach, regardless of whether actual harm occurred.'
+  },
+  {
+    q: 'A patient asks you to delete all their records from the clinic system. What do you do?',
+    opts: [
+      'Delete everything immediately — it is their legal right',
+      'Refuse entirely — the clinic needs the records for future treatment',
+      'Log the request and pass it to the data protection contact. Deletion may apply to some data, but records the clinic is legally required to retain cannot be deleted on request.',
+      'Tell the patient to contact the doctor directly about their own records'
+    ],
+    correct: 2,
+    feedback: 'Correct. Patients have a right to erasure, but this right is limited by legal retention requirements. Medical records may need to be kept for 3–7 years. The data protection contact handles these requests formally.'
+  }
+];
+
+// ─── Certificate ID generator ─────────────────────────
+function generateCertId(name, role, dateStr, score) {
+  const raw = (name + role + dateStr + score).toLowerCase().replace(/\s/g, '');
+  let hash = 0;
+  for (let i = 0; i < raw.length; i++) {
+    const ch = raw.charCodeAt(i);
+    hash = ((hash << 5) - hash) + ch;
+    hash |= 0;
+  }
+  const hex = Math.abs(hash).toString(16).toUpperCase().padStart(8, '0');
+  const year = new Date().getFullYear();
+  return `DPDP-${year}-${hex.slice(0,4)}-${hex.slice(4)}`;
+}
+
+// ─── Flow ─────────────────────────────────────────────
+function startTraining() {
+  const n = document.getElementById('staff-name').value.trim();
+  const r = document.getElementById('staff-role').value.trim();
+  if (!n) { document.getElementById('name-err').style.display = 'block'; return; }
+  staffName = n; staffRole = r || 'Staff';
+  document.getElementById('top-name').textContent = n;
+  document.getElementById('landing').style.display = 'none';
+  document.getElementById('app').style.display = 'block';
+  currentSlide = 0;
+  renderSlide();
+}
+
+function renderSlide() {
+  const s = slides[currentSlide];
+  document.getElementById('prog-fill').style.width = s.prog + '%';
+  document.getElementById('prog-label').textContent = (currentSlide + 1) + ' / ' + slides.length;
+
+  const html = `
+    <div class="module-chip">${s.module}</div>
+    <h1 class="slide-title">${s.title}</h1>
+    ${s.render()}
+    <div class="nav-row">
+      <button class="btn-nav" onclick="goBack()" ${currentSlide === 0 ? 'disabled' : ''}>
+        ← Back
+      </button>
+      <span class="nav-steps">${currentSlide + 1} of ${slides.length}</span>
+      <button class="btn-nav primary" onclick="goNext()">
+        ${currentSlide === slides.length - 1 ? 'Start quiz →' : 'Next →'}
+      </button>
+    </div>
+  `;
+  document.getElementById('slide-content').innerHTML = html;
+  window.scrollTo(0, 0);
+}
+
+function goBack() { if (currentSlide > 0) { currentSlide--; renderSlide(); } }
+
+function goNext() {
+  if (currentSlide < slides.length - 1) {
+    currentSlide++;
+    renderSlide();
+  } else {
+    startQuiz();
+  }
+}
+
+// ─── Quiz ─────────────────────────────────────────────
+function startQuiz() {
+  quizAnswers = []; quizIdx = 0;
+  renderQuestion();
+}
+
+function renderQuestion() {
+  if (quizIdx >= questions.length) { showCert(); return; }
+  const q = questions[quizIdx];
+  const progPct = Math.round(((quizIdx) / questions.length) * 100);
+  document.getElementById('prog-fill').style.width = progPct + '%';
+  document.getElementById('prog-label').textContent = 'Quiz ' + (quizIdx + 1) + ' / ' + questions.length;
+
+  let optsHtml = q.opts.map((opt, i) =>
+    `<button class="quiz-opt" data-i="${i}" onclick="answerQ(${i})">${opt}</button>`
+  ).join('');
+
+  document.getElementById('slide-content').innerHTML = `
+    <div class="module-chip">Quiz · Question ${quizIdx + 1} of ${questions.length}</div>
+    <h1 class="slide-title">Check your knowledge</h1>
+    <div class="quiz-label">Question ${quizIdx + 1}</div>
+    <div class="quiz-q">${q.q}</div>
+    ${optsHtml}
+    <div class="quiz-feedback" id="qfb"></div>
+    <div class="nav-row" style="margin-top:1.5rem;">
+      <span></span>
+      <span class="nav-steps">Quiz ${quizIdx + 1} of ${questions.length}</span>
+      <button class="btn-nav primary" id="qnext-btn" style="display:none;" onclick="nextQuestion()">
+        ${quizIdx === questions.length - 1 ? 'See my certificate →' : 'Next question →'}
+      </button>
+    </div>
+  `;
+  window.scrollTo(0, 0);
+}
+
+function answerQ(chosen) {
+  const q = questions[quizIdx];
+  const correct = chosen === q.correct;
+  quizAnswers.push(correct);
+  document.querySelectorAll('.quiz-opt').forEach((b, i) => {
+    b.disabled = true;
+    if (i === q.correct) b.classList.add('correct');
+    else if (i === chosen && !correct) b.classList.add('wrong');
+  });
+  const fb = document.getElementById('qfb');
+  fb.textContent = (correct ? '✓ ' : '✗ ') + q.feedback;
+  fb.className = 'quiz-feedback show ' + (correct ? 'fb-good' : 'fb-bad');
+  document.getElementById('qnext-btn').style.display = 'inline-flex';
+}
+
+function nextQuestion() { quizIdx++; renderQuestion(); }
+
+// ─── Certificate ──────────────────────────────────────
+function showCert() {
+  const score = quizAnswers.filter(Boolean).length;
+  const pct = Math.round((score / questions.length) * 100);
+  const pass = pct >= 80;
+
+  if (!pass) {
+    // Show retry screen
+    document.getElementById('slide-content').innerHTML = `
+      <div class="module-chip">Quiz complete</div>
+      <h1 class="slide-title">Almost there — review and retry</h1>
+      <p class="slide-body">You scored <strong>${score} out of ${questions.length} (${pct}%)</strong>. A score of 80% or above is needed to receive your certificate. Please review the modules and try the quiz again.</p>
+      <div class="scenario">Tip: Re-read modules 3 and 5 on consent rules and data breach response — these are tested most frequently.</div>
+      <div class="nav-row">
+        <button class="btn-nav" onclick="currentSlide=0;renderSlide()">← Review modules</button>
+        <span></span>
+        <button class="btn-nav primary" onclick="startQuiz()">Retry quiz →</button>
+      </div>
+    `;
+    return;
+  }
+
+  const now = new Date();
+  const dateStr = now.toLocaleDateString('en-IN', { day: 'numeric', month: 'long', year: 'numeric' });
+  const day = now.getDate();
+  const certId = generateCertId(staffName, staffRole, dateStr, score);
+
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('cert-screen').style.display = 'block';
+
+  document.getElementById('cert-name').textContent = staffName;
+  document.getElementById('sig-name').textContent = staffName;
+  document.getElementById('sig-role').textContent = staffRole;
+  document.getElementById('cert-score-num').textContent = score + '/' + questions.length;
+  document.getElementById('cert-pct').textContent = pct + '%';
+  document.getElementById('cert-date-num').textContent = day;
+  document.getElementById('cert-id-val').textContent = certId;
+
+  window.scrollTo(0, 0);
+}
+
+function restartTraining() {
+  document.getElementById('cert-screen').style.display = 'none';
+  document.getElementById('landing').style.display = 'flex';
+  document.getElementById('app').style.display = 'none';
+  document.getElementById('staff-name').value = '';
+  document.getElementById('staff-role').value = '';
+  staffName = ''; staffRole = '';
+  currentSlide = 0; quizAnswers = []; quizIdx = 0;
+}
+</script>
+</body>
+</html>
